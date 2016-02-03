@@ -7,23 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB337DCD1C628A7D00F78A1D /* MainViewGoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB337DCC1C628A7D00F78A1D /* MainViewGoalCollectionViewCell.swift */; };
 		DB5FAB2B1C612546005E9F25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB2A1C612546005E9F25 /* AppDelegate.swift */; };
-		DB5FAB2D1C612546005E9F25 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB2C1C612546005E9F25 /* ViewController.swift */; };
+		DB5FAB2D1C612546005E9F25 /* GoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB2C1C612546005E9F25 /* GoalViewController.swift */; };
 		DB5FAB301C612546005E9F25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB5FAB2E1C612546005E9F25 /* Main.storyboard */; };
 		DB5FAB331C612546005E9F25 /* Climb.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB311C612546005E9F25 /* Climb.xcdatamodeld */; };
 		DB5FAB351C612546005E9F25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DB5FAB341C612546005E9F25 /* Assets.xcassets */; };
 		DB5FAB381C612546005E9F25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB5FAB361C612546005E9F25 /* LaunchScreen.storyboard */; };
+		DB5FAB481C61275B005E9F25 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB471C61275B005E9F25 /* Stack.swift */; };
+		DB5FAB4A1C6127D1005E9F25 /* GoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB491C6127D1005E9F25 /* GoalController.swift */; };
+		DB5FAB4C1C6127E9005E9F25 /* SubGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB4B1C6127E9005E9F25 /* SubGoalController.swift */; };
+		DB5FAB5A1C613881005E9F25 /* SubGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB561C613881005E9F25 /* SubGoal.swift */; };
+		DB5FAB5E1C613910005E9F25 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB5C1C613910005E9F25 /* Goal.swift */; };
+		DB5FAB611C61452B005E9F25 /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB5F1C61452B005E9F25 /* Goal+CoreDataProperties.swift */; };
+		DB5FAB621C61452B005E9F25 /* SubGoal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB601C61452B005E9F25 /* SubGoal+CoreDataProperties.swift */; };
+		DB5FAB661C6152C8005E9F25 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB651C6152C8005E9F25 /* ProfileViewController.swift */; };
+		DB5FAB681C615311005E9F25 /* AddGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB671C615311005E9F25 /* AddGoalTableViewController.swift */; };
+		DB5FAB6E1C61644D005E9F25 /* TabBarSubClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB6D1C61644D005E9F25 /* TabBarSubClass.swift */; };
+		DB5FAB721C6187C9005E9F25 /* GoalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB711C6187C9005E9F25 /* GoalListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB337DCC1C628A7D00F78A1D /* MainViewGoalCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewGoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		DB5FAB271C612546005E9F25 /* Climb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB5FAB2A1C612546005E9F25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DB5FAB2C1C612546005E9F25 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DB5FAB2C1C612546005E9F25 /* GoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalViewController.swift; sourceTree = "<group>"; };
 		DB5FAB2F1C612546005E9F25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DB5FAB321C612546005E9F25 /* Climb.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Climb.xcdatamodel; sourceTree = "<group>"; };
 		DB5FAB341C612546005E9F25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DB5FAB371C612546005E9F25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DB5FAB391C612546005E9F25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB5FAB471C61275B005E9F25 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stack.swift; path = ../Stack.swift; sourceTree = "<group>"; };
+		DB5FAB491C6127D1005E9F25 /* GoalController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalController.swift; sourceTree = "<group>"; };
+		DB5FAB4B1C6127E9005E9F25 /* SubGoalController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubGoalController.swift; sourceTree = "<group>"; };
+		DB5FAB561C613881005E9F25 /* SubGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubGoal.swift; sourceTree = "<group>"; };
+		DB5FAB5C1C613910005E9F25 /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
+		DB5FAB5F1C61452B005E9F25 /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DB5FAB601C61452B005E9F25 /* SubGoal+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SubGoal+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DB5FAB651C6152C8005E9F25 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		DB5FAB671C615311005E9F25 /* AddGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGoalTableViewController.swift; sourceTree = "<group>"; };
+		DB5FAB6D1C61644D005E9F25 /* TabBarSubClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarSubClass.swift; sourceTree = "<group>"; };
+		DB5FAB711C6187C9005E9F25 /* GoalListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +61,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DB337DCE1C628A8500F78A1D /* Custom Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DB337DD01C628AC500F78A1D /* TableView Cells */,
+				DB337DCF1C628A9500F78A1D /* CollectionView Cells */,
+			);
+			name = "Custom Cells";
+			sourceTree = "<group>";
+		};
+		DB337DCF1C628A9500F78A1D /* CollectionView Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DB337DCC1C628A7D00F78A1D /* MainViewGoalCollectionViewCell.swift */,
+			);
+			name = "CollectionView Cells";
+			sourceTree = "<group>";
+		};
+		DB337DD01C628AC500F78A1D /* TableView Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "TableView Cells";
+			sourceTree = "<group>";
+		};
 		DB5FAB1E1C612546005E9F25 = {
 			isa = PBXGroup;
 			children = (
@@ -56,15 +104,75 @@
 		DB5FAB291C612546005E9F25 /* Climb */ = {
 			isa = PBXGroup;
 			children = (
-				DB5FAB2A1C612546005E9F25 /* AppDelegate.swift */,
-				DB5FAB2C1C612546005E9F25 /* ViewController.swift */,
-				DB5FAB2E1C612546005E9F25 /* Main.storyboard */,
-				DB5FAB341C612546005E9F25 /* Assets.xcassets */,
-				DB5FAB361C612546005E9F25 /* LaunchScreen.storyboard */,
-				DB5FAB391C612546005E9F25 /* Info.plist */,
-				DB5FAB311C612546005E9F25 /* Climb.xcdatamodeld */,
+				DB5FAB501C6134F5005E9F25 /* Core */,
+				DB5FAB4F1C6134C7005E9F25 /* Model */,
+				DB5FAB4D1C613495005E9F25 /* Controllers */,
+				DB5FAB511C61351D005E9F25 /* View */,
+				DB5FAB521C613565005E9F25 /* Storyboards */,
 			);
 			path = Climb;
+			sourceTree = "<group>";
+		};
+		DB5FAB4D1C613495005E9F25 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DB5FAB491C6127D1005E9F25 /* GoalController.swift */,
+				DB5FAB4B1C6127E9005E9F25 /* SubGoalController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		DB5FAB4E1C6134A5005E9F25 /* CoreData Properties */ = {
+			isa = PBXGroup;
+			children = (
+				DB5FAB5F1C61452B005E9F25 /* Goal+CoreDataProperties.swift */,
+				DB5FAB601C61452B005E9F25 /* SubGoal+CoreDataProperties.swift */,
+			);
+			name = "CoreData Properties";
+			sourceTree = "<group>";
+		};
+		DB5FAB4F1C6134C7005E9F25 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DB5FAB311C612546005E9F25 /* Climb.xcdatamodeld */,
+				DB5FAB471C61275B005E9F25 /* Stack.swift */,
+				DB5FAB4E1C6134A5005E9F25 /* CoreData Properties */,
+				DB5FAB5C1C613910005E9F25 /* Goal.swift */,
+				DB5FAB561C613881005E9F25 /* SubGoal.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		DB5FAB501C6134F5005E9F25 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				DB5FAB391C612546005E9F25 /* Info.plist */,
+				DB5FAB2A1C612546005E9F25 /* AppDelegate.swift */,
+				DB5FAB341C612546005E9F25 /* Assets.xcassets */,
+				DB5FAB361C612546005E9F25 /* LaunchScreen.storyboard */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		DB5FAB511C61351D005E9F25 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DB337DCE1C628A8500F78A1D /* Custom Cells */,
+				DB5FAB711C6187C9005E9F25 /* GoalListViewController.swift */,
+				DB5FAB6D1C61644D005E9F25 /* TabBarSubClass.swift */,
+				DB5FAB671C615311005E9F25 /* AddGoalTableViewController.swift */,
+				DB5FAB651C6152C8005E9F25 /* ProfileViewController.swift */,
+				DB5FAB2C1C612546005E9F25 /* GoalViewController.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		DB5FAB521C613565005E9F25 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				DB5FAB2E1C612546005E9F25 /* Main.storyboard */,
+			);
+			name = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +246,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB5FAB661C6152C8005E9F25 /* ProfileViewController.swift in Sources */,
 				DB5FAB331C612546005E9F25 /* Climb.xcdatamodeld in Sources */,
-				DB5FAB2D1C612546005E9F25 /* ViewController.swift in Sources */,
+				DB5FAB5A1C613881005E9F25 /* SubGoal.swift in Sources */,
+				DB5FAB2D1C612546005E9F25 /* GoalViewController.swift in Sources */,
+				DB5FAB4A1C6127D1005E9F25 /* GoalController.swift in Sources */,
+				DB5FAB481C61275B005E9F25 /* Stack.swift in Sources */,
+				DB5FAB611C61452B005E9F25 /* Goal+CoreDataProperties.swift in Sources */,
+				DB5FAB621C61452B005E9F25 /* SubGoal+CoreDataProperties.swift in Sources */,
+				DB5FAB681C615311005E9F25 /* AddGoalTableViewController.swift in Sources */,
 				DB5FAB2B1C612546005E9F25 /* AppDelegate.swift in Sources */,
+				DB5FAB5E1C613910005E9F25 /* Goal.swift in Sources */,
+				DB337DCD1C628A7D00F78A1D /* MainViewGoalCollectionViewCell.swift in Sources */,
+				DB5FAB721C6187C9005E9F25 /* GoalListViewController.swift in Sources */,
+				DB5FAB6E1C61644D005E9F25 /* TabBarSubClass.swift in Sources */,
+				DB5FAB4C1C6127E9005E9F25 /* SubGoalController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,6 +408,7 @@
 				DB5FAB3E1C612546005E9F25 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
