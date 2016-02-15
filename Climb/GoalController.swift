@@ -35,7 +35,7 @@ class GoalController
     static func removeGoalFromContext(goal: Goal, context: NSManagedObjectContext) -> Bool
     {
         print("GOAL BEFORE DELETED: \(goal.managedObjectContext)")
-        context.deleteObject(goal)
+        goal.managedObjectContext?.deleteObject(goal)
         print("GOAL AFTER DELETED: \(goal.managedObjectContext)")
         
         if goal.managedObjectContext == nil
@@ -51,7 +51,7 @@ class GoalController
     static func allGoalsInContext(context: NSManagedObjectContext) -> [Goal]?
     {
         let request = NSFetchRequest(entityName: "Goal")
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         
         var goals = [Goal]()

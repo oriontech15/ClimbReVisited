@@ -18,8 +18,8 @@ class TabBarSubClass: UITabBarController, ToggleNewGoalButton
     var holdTimer = NSTimer()
     var timeCount = NSTimeInterval()
     var addGoalButton = UIButton()
-    var buttonImage = UIImage(named: "AddGoalButtonCircle")
-    var highlightImage = UIImage(named: "AddGoalHighlightButtonCircle")
+    var buttonImage = UIImage(named: "SmallAddSubGoalButtonCircle")
+    var highlightImage = UIImage(named: "SmallAddSubGoalHighlightButtonCircle")
     
     static var switchStateDelegate: UpdateNewGoalSwitch?
     
@@ -49,8 +49,8 @@ class TabBarSubClass: UITabBarController, ToggleNewGoalButton
             
             let heightDifference = buttonImage.size.height - self.tabBar.frame.size.height
             print(heightDifference)
-            let buttonCenter = CGPoint(x: self.tabBar.center.x, y: self.tabBar.center.y - 65)
-            let viewCenter = CGPoint(x: self.tabBar.center.x, y: self.tabBar.center.y - 26)
+            let buttonCenter = CGPoint(x: self.tabBar.center.x + ((self.view.frame.size.width / 2) - 35), y: self.tabBar.center.y - 60)
+            //let viewCenter = CGPoint(x: self.tabBar.center.x, y: self.tabBar.center.y - 26)
             addGoalButton.center = buttonCenter
             //topTabBarView.center = viewCenter
         }
@@ -92,7 +92,7 @@ class TabBarSubClass: UITabBarController, ToggleNewGoalButton
         timeCount++
         if timeCount == 2
         {
-            //holdTimer.invalidate()
+            holdTimer.invalidate()
             
             let holdAlert = UIAlertController(title: "New  Goal Button Held", message: "Would you like to hide this button?", preferredStyle: .Alert)
             
@@ -111,12 +111,7 @@ class TabBarSubClass: UITabBarController, ToggleNewGoalButton
     
     func holdRelease()
     {
-        //holdTimer.invalidate()
-        
-        let goal = GoalController.insertGoalIntoContext(Stack.sharedStack.managedObjectContext)
-        goal.title = "Goal"
-        goal.date = NSDate()
-        GoalController.saveGoalInContext(Stack.sharedStack.managedObjectContext)
+        holdTimer.invalidate()
         self.performSegueWithIdentifier("AddGoalSegue", sender: nil)
         print("YOU TAPPED THE BUTTON")
         print("hold release")
@@ -143,11 +138,6 @@ class TabBarSubClass: UITabBarController, ToggleNewGoalButton
             })
         }
         
-    }
-    
-    func addGoalButtonTappedMulti()
-    {
-        self.addGoalButton.hidden = true
     }
     
 

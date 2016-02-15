@@ -8,25 +8,25 @@
 
 import UIKit
 
-protocol PresentDateViewDelegate
+protocol SetDateViewDelegate
 {
-    func presentView()
+    func setDateForGoal()
 }
 
-class SubGoalTableViewCell: UITableViewCell, UpdateSubGoalDateTextField {
+class GoalDateTableViewCell: UITableViewCell, UpdateGoalDateTextField {
 
-    @IBOutlet weak var subGoalTextField: UITextField!
+    @IBOutlet weak var goalDateTextField: UITextField!
     @IBOutlet weak var calendarButton: UIButton!
     
-    var delegate: PresentDateViewDelegate?
+    var delegate: SetDateViewDelegate?
     
     override func awakeFromNib()
     {
         super.awakeFromNib()
         
-        NewGoalViewController.subGoalDateDelegate = self
+        NewGoalViewController.goalDateDelegate = self
         
-        subGoalTextField.textColor = UIColor(red: 0.691, green: 0.976, blue: 1.000, alpha: 1.00)
+        goalDateTextField.textColor = UIColor(red: 0.691, green: 0.976, blue: 1.000, alpha: 1.00)
         
         configureDateButton()
     }
@@ -39,12 +39,12 @@ class SubGoalTableViewCell: UITableViewCell, UpdateSubGoalDateTextField {
 
     @IBAction func addDateToSubGoalButtonTapped(sender: AnyObject)
     {
-        self.delegate?.presentView()
+        self.delegate?.setDateForGoal()
     }
     
     func updateTextFieldWithDate(date: NSDate)
     {
-        self.subGoalTextField.text = String.shortDateForCollectionView(date)
+        self.goalDateTextField.text = String.shortDateForCollectionView(date)
     }
     
     override func setSelected(selected: Bool, animated: Bool) {

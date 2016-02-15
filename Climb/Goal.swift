@@ -22,7 +22,7 @@ class Goal: NSManagedObject {
         self.goalDescription = goalDescription
         self.title = title
         self.date = date
-        self.subGoals = subGoals
+        self.tasks = subGoals
         self.finished = finished
     }
 }

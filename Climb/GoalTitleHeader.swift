@@ -8,14 +8,25 @@
 
 import UIKit
 
-class GoalTitleHeader: UILabel {
+class GoalTitleHeader: UIView {
 
-    /*
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect) {
-        // Drawing code
+    
+    /*- (void)drawRect:(CGRect)rect {
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    CGContextSaveGState(currentContext);
+    CGContextSetShadow(currentContext, CGSizeMake(-15, 20), 5);
+    [super drawRect: rect];
+    CGContextRestoreGState(currentContext);
+    } */
+    override func drawRect(rect: CGRect)
+    {
+        let context = UIGraphicsGetCurrentContext()
+        CGContextSaveGState(context)
+        CGContextSetShadow(context, CGSizeMake(0, 18), 2)
+            super.drawRect(rect)
+        CGContextRestoreGState(context)
     }
-    */
 
 }

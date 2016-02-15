@@ -13,5 +13,14 @@ import CoreData
 class Task: NSManagedObject {
 
 // Insert code here to add functionality to your managed object subclass
+    static let className = "Task"
+    
+    convenience init(title: String, goal: Goal, finished: Bool = false)
+    {
+        self.init()
+        self.title = title
+        self.goal = goal
+        self.finished = finished
+    }
 
 }

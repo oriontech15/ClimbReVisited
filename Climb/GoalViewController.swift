@@ -13,10 +13,27 @@ class GoalViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var goalPageController: UIPageControl!
     
+    var currentCell = 0
+    var currentGoal: Goal?
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
         
+        if let goals = GoalController.allGoalsInContext(Stack.sharedStack.managedObjectContext)
+        {
+            for goal in goals
+            {
+                
+                print("GOAL --> \n\(goal)\n\(goal.title)\n\(goal.date)\n\(goal.finished)\n")
+                for task in goal.tasks!
+                {
+                    print("TASK --> \n\(task)\n")
+                }
+            }
+        }
+        
+        self.title = "Goals"
         self.parentViewController?.tabBarItem.image = UIImage(named: "tabBarButtonMain")?.imageWithRenderingMode(.Automatic)
         self.parentViewController?.tabBarItem.selectedImage = UIImage(named: "tabBarButtonMain")?.imageWithRenderingMode(.AlwaysOriginal)
         // Do any additional setup after loading the view, typically from a nib.
@@ -60,13 +77,10 @@ extension GoalViewController: UICollectionViewDataSource, UICollectionViewDelega
         if let goals = GoalController.allGoalsInContext(Stack.sharedStack.managedObjectContext)
         {
             let goal = goals[indexPath.row]
-            cell.goalTitleLabel.text = goal.title
             cell.goalDateLabel.text = String.shortDateForCollectionView(goal.date!)
-//            cell.layer.borderColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00).CGColor
-//            cell.layer.borderWidth = 3
-//            cell.layer.masksToBounds = true
+            cell.goalTitleLabel.text = goal.title!
+            currentCell = indexPath.row
         }
-        
         
         return cell
     }
@@ -98,3 +112,38 @@ extension GoalViewController: UICollectionViewDataSource, UICollectionViewDelega
         self.goalPageController.currentPage = Int(self.collectionView.contentOffset.x / pageWidth)
     }
 }
+
+extension GoalViewController: UITableViewDataSource, UITableViewDelegate
+{
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let taskCount = currentGoal?.tasks?.count
+        {
+            return taskCount
+        }
+        else
+        {
+            return 0
+        }
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath) as! MainViewTasksTableViewCell
+        if let task = self.currentGoal?.tasks?[indexPath.row]
+        {
+            cell.taskTitleLabel.text = task.title
+        }
+        
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+}
+
+
+
+
+
+
+

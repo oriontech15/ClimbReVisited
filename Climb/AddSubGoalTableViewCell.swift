@@ -8,14 +8,31 @@
 
 import UIKit
 
+protocol AddSubGoalDelegate
+{
+    func addSubGoal()
+}
+
 class AddSubGoalTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
+    @IBOutlet weak var addSubGoalButton: UIButton!
+    
+    var delegate: AddSubGoalDelegate?
+    
+    override func awakeFromNib()
+    {
         super.awakeFromNib()
-        // Initialization code
+        addSubGoalButton.layer.cornerRadius = 8
+        addSubGoalButton.layer.masksToBounds = true
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    @IBAction func addSubGoalButtonTapped(sender: AnyObject)
+    {
+        self.delegate?.addSubGoal()
+    }
+    
+    override func setSelected(selected: Bool, animated: Bool)
+    {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state

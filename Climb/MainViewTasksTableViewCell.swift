@@ -10,11 +10,36 @@ import UIKit
 
 class MainViewTasksTableViewCell: UITableViewCell {
 
-    override func awakeFromNib() {
+    @IBOutlet weak var taskTitleLabel: UILabel!
+    @IBOutlet weak var taskCompleteButton: UIButton!
+    
+    var complete = false
+    
+    override func awakeFromNib()
+    {
         super.awakeFromNib()
         // Initialization code
+        
+        taskCompleteButton.setImage(UIImage(named: "GoalDoneCircleButtonUnSelected"), forState: .Normal)
+        taskTitleLabel.textColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
+        taskTitleLabel.font = UIFont(name: "HelveticaNeue", size: 19)
+        
     }
 
+    @IBAction func taskCompleteButtonTapped(sender: AnyObject)
+    {
+        if !complete
+        {
+            taskCompleteButton.setImage(UIImage(named: "GoalDoneCircleButtonSelected"), forState: .Normal)
+            complete = true
+        }
+        else
+        {
+            taskCompleteButton.setImage(UIImage(named: "GoalDoneCircleButtonUnSelected"), forState: .Normal)
+            complete = false
+        }
+    }
+    
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

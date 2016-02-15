@@ -33,8 +33,6 @@ class TaskController
     static func allTasksForGoal(goal: Goal) -> [Task]?
     {
         let request = NSFetchRequest(entityName: "Task")
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
-        request.sortDescriptors = [sortDescriptor]
         
         var tasks = [Task]()
         do
@@ -55,9 +53,7 @@ class TaskController
     {
         let request = NSFetchRequest(entityName: "Task")
         let finishedGoalPredicate = NSPredicate(format: "finished = 1")
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
         request.predicate = finishedGoalPredicate
-        request.sortDescriptors = [sortDescriptor]
         
         var finishedTasks = [Task]()
         do
@@ -78,9 +74,7 @@ class TaskController
     {
         let request = NSFetchRequest(entityName: "Task")
         let finishedGoalPredicate = NSPredicate(format: "finished = 0")
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
         request.predicate = finishedGoalPredicate
-        request.sortDescriptors = [sortDescriptor]
         
         var unfinishedTasks = [Task]()
         do

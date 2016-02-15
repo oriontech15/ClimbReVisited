@@ -12,11 +12,15 @@ class GoalListViewController: UIViewController
 {
     @IBOutlet weak var tableView: UITableView!
     
+    var headerLabel = UILabel()
+    var headerNumGoalsLabel = UILabel()
+    
     var currentGoalsCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = "Your Goals"
         self.parentViewController?.tabBarItem.image = UIImage(named: "tabBarButtonList")?.imageWithRenderingMode(.Automatic)
         self.parentViewController?.tabBarItem.selectedImage = UIImage(named: "tabBarButtonList")?.imageWithRenderingMode(.AlwaysOriginal)
 
@@ -47,6 +51,7 @@ class GoalListViewController: UIViewController
 
 }
 
+
 extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
 {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
@@ -74,11 +79,11 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 75
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 2
+        return 8
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
@@ -106,36 +111,98 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
     
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        if editingStyle == .Delete
+        {
+            if let goals = GoalController.allGoalsInContext(Stack.sharedStack.managedObjectContext)
+            {
+                if indexPath.section == 0
+                {
+                    if goals.count == 1
+                    {
+                        print(goals)
+                        print(indexPath.row)
+                        print(goals[indexPath.row])
+                        let deleted = GoalController.removeGoalFromContext(goals[indexPath.row], context: Stack.sharedStack.managedObjectContext)
+                        GoalController.saveGoalInContext(Stack.sharedStack.managedObjectContext)
+                        print(deleted)
+                        tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
+                        headerNumGoalsLabel.text = "\(currentGoalsCount)"
+                    }
+                    else
+                    {
+                        print(goals)
+                        print(indexPath.row)
+                        print(goals[indexPath.row])
+                        let deleted = GoalController.removeGoalFromContext(goals[indexPath.row], context: Stack.sharedStack.managedObjectContext)
+                        GoalController.saveGoalInContext(Stack.sharedStack.managedObjectContext)
+                        print(deleted)
+                        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                        headerNumGoalsLabel.text = "\(currentGoalsCount)"
+                    }
+                }
+            }
+        }
+    }
+    
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
-        let headerView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, 50))
-        let seperatorView = UIView(frame: CGRectMake(headerView.frame.origin.x, headerView.frame.height, headerView.frame.size.width, 2))
+//        let blurEffect = UIBlurEffect(style: .Dark)
+//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        let headerView = HeaderForGoalList(frame: CGRectMake(0, 0, self.view.frame.width, 85))
+        //let headerView = HeaderForGoalList(frame: CGRectMake(headerView.frame.origin.x, headerView.frame.height, headerView.frame.size.width, 100))
+        
+//        let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
+//        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
+//        vibrancyEffectView.frame = blurEffectView.frame
+//        blurEffectView.contentView.addSubview(vibrancyEffectView)
         
         if section == 0
         {
-            let label = UILabel(frame: CGRectMake(0, 0, self.view.frame.width, 50))
-            label.text = "Current Goals [\(currentGoalsCount)]"
-            label.textAlignment = .Center
-            label.font = UIFont(name: "HelveticaNeue", size: 18)
-            label.textColor = .lightGrayColor()
+            headerView.lineColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
+
+            headerLabel = UILabel(frame: CGRectMake(0, 0, self.view.frame.width, 35))
+            headerLabel.text = "Current Goals"
+            headerLabel.textAlignment = .Center
+            headerLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 22)
+            headerLabel.textColor = .lightGrayColor()
+            headerLabel.textColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
             
-            seperatorView.backgroundColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
+            headerNumGoalsLabel = UILabel(frame: CGRectMake(0, headerLabel.frame.origin.y + 42, self.view.frame.width, 50))
+            headerNumGoalsLabel.text = "\(currentGoalsCount)"
+            headerNumGoalsLabel.textAlignment = .Center
+            headerNumGoalsLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
+            headerNumGoalsLabel.textColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
+            headerView.backgroundColor = .clearColor()
+            //seperatorView.backgroundColor = UIColor.redColor()
             
-            headerView.addSubview(seperatorView)
-            headerView.addSubview(label)
+            headerView.addSubview(headerLabel)
+            //headerView.addSubview(seperatorView)
+            headerView.addSubview(headerNumGoalsLabel)
         }
         else
         {
-            let label = UILabel(frame: CGRectMake(0, 0, self.view.frame.width, 50))
-            label.text = "Finished Goals [\(currentGoalsCount)]"
-            label.textAlignment = .Center
-            label.font = UIFont(name: "HelveticaNeue", size: 18)
-            label.textColor = .lightGrayColor()
+            headerView.lineColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
+
+            headerLabel = UILabel(frame: CGRectMake(0, 0, self.view.frame.width, 35))
+            headerLabel.text = "Finished Goals"
+            headerLabel.textAlignment = .Center
+            headerLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 22)
+            headerLabel.textColor = .lightGrayColor()
+            headerLabel.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
             
-            seperatorView.backgroundColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
+            headerNumGoalsLabel = UILabel(frame: CGRectMake(0, headerLabel.frame.origin.y + 42, self.view.frame.width, 50))
+            headerNumGoalsLabel.text = "\(currentGoalsCount)"
+            headerNumGoalsLabel.textAlignment = .Center
+            headerNumGoalsLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
+            headerNumGoalsLabel.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
+            //seperatorView.backgroundColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
             
-            headerView.addSubview(seperatorView)
-            headerView.addSubview(label)
+            headerView.backgroundColor = .clearColor()
+            //headerView.addSubview(seperatorView)
+            headerView.addSubview(headerLabel)
+            headerView.addSubview(headerNumGoalsLabel)
         }
         
         return headerView
@@ -143,6 +210,7 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView?
     {
+        let view = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, 8))
         let seperatorView = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, 2))
         
         if section == 0
@@ -154,7 +222,8 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
             seperatorView.backgroundColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
         }
         
-        return seperatorView
+        view.addSubview(seperatorView)
+        return view
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell

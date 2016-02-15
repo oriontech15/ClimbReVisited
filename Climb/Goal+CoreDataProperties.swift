@@ -18,6 +18,6 @@ extension Goal {
     @NSManaged var goalDescription: String?
     @NSManaged var title: String?
     @NSManaged var finished: NSNumber?
-    @NSManaged var subGoals: NSOrderedSet?
+    @NSManaged var tasks: NSOrderedSet?
 
 }

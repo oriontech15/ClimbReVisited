@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB0E94381C6CFDD900154FCB /* MainViewTasksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB0E94371C6CFDD900154FCB /* MainViewTasksTableViewCell.swift */; };
 		DB337DCD1C628A7D00F78A1D /* MainViewGoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB337DCC1C628A7D00F78A1D /* MainViewGoalCollectionViewCell.swift */; };
+		DB3AE96D1C63C3FE00825D2A /* GoalDescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3AE96C1C63C3FE00825D2A /* GoalDescriptionTableViewCell.swift */; };
+		DB3AE96F1C63C41300825D2A /* GoalDateTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3AE96E1C63C41300825D2A /* GoalDateTableViewCell.swift */; };
+		DB3AE9711C63C43D00825D2A /* SaveGoalFooterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB3AE9701C63C43D00825D2A /* SaveGoalFooterTableViewCell.swift */; };
+		DB43E2671C69255100B543E8 /* HeaderForGoalList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB43E2661C69255100B543E8 /* HeaderForGoalList.swift */; };
+		DB4FB18F1C69C667008881FD /* GoalTitleHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB4FB18E1C69C667008881FD /* GoalTitleHeader.swift */; };
 		DB5FAB2B1C612546005E9F25 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB2A1C612546005E9F25 /* AppDelegate.swift */; };
 		DB5FAB2D1C612546005E9F25 /* GoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB2C1C612546005E9F25 /* GoalViewController.swift */; };
 		DB5FAB301C612546005E9F25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB5FAB2E1C612546005E9F25 /* Main.storyboard */; };
@@ -16,19 +22,27 @@
 		DB5FAB381C612546005E9F25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DB5FAB361C612546005E9F25 /* LaunchScreen.storyboard */; };
 		DB5FAB481C61275B005E9F25 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB471C61275B005E9F25 /* Stack.swift */; };
 		DB5FAB4A1C6127D1005E9F25 /* GoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB491C6127D1005E9F25 /* GoalController.swift */; };
-		DB5FAB4C1C6127E9005E9F25 /* SubGoalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB4B1C6127E9005E9F25 /* SubGoalController.swift */; };
-		DB5FAB5A1C613881005E9F25 /* SubGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB561C613881005E9F25 /* SubGoal.swift */; };
+		DB5FAB4C1C6127E9005E9F25 /* TaskController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB4B1C6127E9005E9F25 /* TaskController.swift */; };
 		DB5FAB5E1C613910005E9F25 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB5C1C613910005E9F25 /* Goal.swift */; };
 		DB5FAB611C61452B005E9F25 /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB5F1C61452B005E9F25 /* Goal+CoreDataProperties.swift */; };
-		DB5FAB621C61452B005E9F25 /* SubGoal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB601C61452B005E9F25 /* SubGoal+CoreDataProperties.swift */; };
 		DB5FAB661C6152C8005E9F25 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB651C6152C8005E9F25 /* ProfileViewController.swift */; };
-		DB5FAB681C615311005E9F25 /* AddGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB671C615311005E9F25 /* AddGoalTableViewController.swift */; };
+		DB5FAB681C615311005E9F25 /* NewGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB671C615311005E9F25 /* NewGoalViewController.swift */; };
 		DB5FAB6E1C61644D005E9F25 /* TabBarSubClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB6D1C61644D005E9F25 /* TabBarSubClass.swift */; };
 		DB5FAB721C6187C9005E9F25 /* GoalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB711C6187C9005E9F25 /* GoalListViewController.swift */; };
+		DBF7B6171C6AF7FB007C1A89 /* SubGoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7B6161C6AF7FB007C1A89 /* SubGoalTableViewCell.swift */; };
+		DBF7B6191C6BAD76007C1A89 /* AddSubGoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7B6181C6BAD76007C1A89 /* AddSubGoalTableViewCell.swift */; };
+		DBF7B6201C6BD442007C1A89 /* Task+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7B61E1C6BD442007C1A89 /* Task+CoreDataProperties.swift */; };
+		DBF7B6211C6BD442007C1A89 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7B61F1C6BD442007C1A89 /* Task.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DB0E94371C6CFDD900154FCB /* MainViewTasksTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewTasksTableViewCell.swift; sourceTree = "<group>"; };
 		DB337DCC1C628A7D00F78A1D /* MainViewGoalCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewGoalCollectionViewCell.swift; sourceTree = "<group>"; };
+		DB3AE96C1C63C3FE00825D2A /* GoalDescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		DB3AE96E1C63C41300825D2A /* GoalDateTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDateTableViewCell.swift; sourceTree = "<group>"; };
+		DB3AE9701C63C43D00825D2A /* SaveGoalFooterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveGoalFooterTableViewCell.swift; sourceTree = "<group>"; };
+		DB43E2661C69255100B543E8 /* HeaderForGoalList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderForGoalList.swift; sourceTree = "<group>"; };
+		DB4FB18E1C69C667008881FD /* GoalTitleHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTitleHeader.swift; sourceTree = "<group>"; };
 		DB5FAB271C612546005E9F25 /* Climb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Climb.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB5FAB2A1C612546005E9F25 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DB5FAB2C1C612546005E9F25 /* GoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalViewController.swift; sourceTree = "<group>"; };
@@ -39,15 +53,17 @@
 		DB5FAB391C612546005E9F25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DB5FAB471C61275B005E9F25 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Stack.swift; path = ../Stack.swift; sourceTree = "<group>"; };
 		DB5FAB491C6127D1005E9F25 /* GoalController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalController.swift; sourceTree = "<group>"; };
-		DB5FAB4B1C6127E9005E9F25 /* SubGoalController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubGoalController.swift; sourceTree = "<group>"; };
-		DB5FAB561C613881005E9F25 /* SubGoal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubGoal.swift; sourceTree = "<group>"; };
+		DB5FAB4B1C6127E9005E9F25 /* TaskController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskController.swift; sourceTree = "<group>"; };
 		DB5FAB5C1C613910005E9F25 /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		DB5FAB5F1C61452B005E9F25 /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		DB5FAB601C61452B005E9F25 /* SubGoal+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SubGoal+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DB5FAB651C6152C8005E9F25 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		DB5FAB671C615311005E9F25 /* AddGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddGoalTableViewController.swift; sourceTree = "<group>"; };
+		DB5FAB671C615311005E9F25 /* NewGoalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGoalViewController.swift; sourceTree = "<group>"; };
 		DB5FAB6D1C61644D005E9F25 /* TabBarSubClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarSubClass.swift; sourceTree = "<group>"; };
 		DB5FAB711C6187C9005E9F25 /* GoalListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalListViewController.swift; sourceTree = "<group>"; };
+		DBF7B6161C6AF7FB007C1A89 /* SubGoalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubGoalTableViewCell.swift; sourceTree = "<group>"; };
+		DBF7B6181C6BAD76007C1A89 /* AddSubGoalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddSubGoalTableViewCell.swift; sourceTree = "<group>"; };
+		DBF7B61E1C6BD442007C1A89 /* Task+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Task+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DBF7B61F1C6BD442007C1A89 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +80,8 @@
 		DB337DCE1C628A8500F78A1D /* Custom Cells */ = {
 			isa = PBXGroup;
 			children = (
+				DB43E2661C69255100B543E8 /* HeaderForGoalList.swift */,
+				DB4FB18E1C69C667008881FD /* GoalTitleHeader.swift */,
 				DB337DD01C628AC500F78A1D /* TableView Cells */,
 				DB337DCF1C628A9500F78A1D /* CollectionView Cells */,
 			);
@@ -73,6 +91,7 @@
 		DB337DCF1C628A9500F78A1D /* CollectionView Cells */ = {
 			isa = PBXGroup;
 			children = (
+				DB0E94371C6CFDD900154FCB /* MainViewTasksTableViewCell.swift */,
 				DB337DCC1C628A7D00F78A1D /* MainViewGoalCollectionViewCell.swift */,
 			);
 			name = "CollectionView Cells";
@@ -81,6 +100,11 @@
 		DB337DD01C628AC500F78A1D /* TableView Cells */ = {
 			isa = PBXGroup;
 			children = (
+				DBF7B6181C6BAD76007C1A89 /* AddSubGoalTableViewCell.swift */,
+				DB3AE96C1C63C3FE00825D2A /* GoalDescriptionTableViewCell.swift */,
+				DB3AE96E1C63C41300825D2A /* GoalDateTableViewCell.swift */,
+				DB3AE9701C63C43D00825D2A /* SaveGoalFooterTableViewCell.swift */,
+				DBF7B6161C6AF7FB007C1A89 /* SubGoalTableViewCell.swift */,
 			);
 			name = "TableView Cells";
 			sourceTree = "<group>";
@@ -117,7 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				DB5FAB491C6127D1005E9F25 /* GoalController.swift */,
-				DB5FAB4B1C6127E9005E9F25 /* SubGoalController.swift */,
+				DB5FAB4B1C6127E9005E9F25 /* TaskController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -126,7 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				DB5FAB5F1C61452B005E9F25 /* Goal+CoreDataProperties.swift */,
-				DB5FAB601C61452B005E9F25 /* SubGoal+CoreDataProperties.swift */,
+				DBF7B61E1C6BD442007C1A89 /* Task+CoreDataProperties.swift */,
 			);
 			name = "CoreData Properties";
 			sourceTree = "<group>";
@@ -138,7 +162,7 @@
 				DB5FAB471C61275B005E9F25 /* Stack.swift */,
 				DB5FAB4E1C6134A5005E9F25 /* CoreData Properties */,
 				DB5FAB5C1C613910005E9F25 /* Goal.swift */,
-				DB5FAB561C613881005E9F25 /* SubGoal.swift */,
+				DBF7B61F1C6BD442007C1A89 /* Task.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -160,7 +184,7 @@
 				DB337DCE1C628A8500F78A1D /* Custom Cells */,
 				DB5FAB711C6187C9005E9F25 /* GoalListViewController.swift */,
 				DB5FAB6D1C61644D005E9F25 /* TabBarSubClass.swift */,
-				DB5FAB671C615311005E9F25 /* AddGoalTableViewController.swift */,
+				DB5FAB671C615311005E9F25 /* NewGoalViewController.swift */,
 				DB5FAB651C6152C8005E9F25 /* ProfileViewController.swift */,
 				DB5FAB2C1C612546005E9F25 /* GoalViewController.swift */,
 			);
@@ -248,19 +272,27 @@
 			files = (
 				DB5FAB661C6152C8005E9F25 /* ProfileViewController.swift in Sources */,
 				DB5FAB331C612546005E9F25 /* Climb.xcdatamodeld in Sources */,
-				DB5FAB5A1C613881005E9F25 /* SubGoal.swift in Sources */,
+				DB43E2671C69255100B543E8 /* HeaderForGoalList.swift in Sources */,
+				DB3AE9711C63C43D00825D2A /* SaveGoalFooterTableViewCell.swift in Sources */,
+				DBF7B6211C6BD442007C1A89 /* Task.swift in Sources */,
+				DBF7B6201C6BD442007C1A89 /* Task+CoreDataProperties.swift in Sources */,
 				DB5FAB2D1C612546005E9F25 /* GoalViewController.swift in Sources */,
+				DBF7B6171C6AF7FB007C1A89 /* SubGoalTableViewCell.swift in Sources */,
+				DBF7B6191C6BAD76007C1A89 /* AddSubGoalTableViewCell.swift in Sources */,
 				DB5FAB4A1C6127D1005E9F25 /* GoalController.swift in Sources */,
 				DB5FAB481C61275B005E9F25 /* Stack.swift in Sources */,
 				DB5FAB611C61452B005E9F25 /* Goal+CoreDataProperties.swift in Sources */,
-				DB5FAB621C61452B005E9F25 /* SubGoal+CoreDataProperties.swift in Sources */,
-				DB5FAB681C615311005E9F25 /* AddGoalTableViewController.swift in Sources */,
+				DB5FAB681C615311005E9F25 /* NewGoalViewController.swift in Sources */,
 				DB5FAB2B1C612546005E9F25 /* AppDelegate.swift in Sources */,
 				DB5FAB5E1C613910005E9F25 /* Goal.swift in Sources */,
 				DB337DCD1C628A7D00F78A1D /* MainViewGoalCollectionViewCell.swift in Sources */,
 				DB5FAB721C6187C9005E9F25 /* GoalListViewController.swift in Sources */,
 				DB5FAB6E1C61644D005E9F25 /* TabBarSubClass.swift in Sources */,
-				DB5FAB4C1C6127E9005E9F25 /* SubGoalController.swift in Sources */,
+				DB3AE96F1C63C41300825D2A /* GoalDateTableViewCell.swift in Sources */,
+				DB3AE96D1C63C3FE00825D2A /* GoalDescriptionTableViewCell.swift in Sources */,
+				DB4FB18F1C69C667008881FD /* GoalTitleHeader.swift in Sources */,
+				DB5FAB4C1C6127E9005E9F25 /* TaskController.swift in Sources */,
+				DB0E94381C6CFDD900154FCB /* MainViewTasksTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
