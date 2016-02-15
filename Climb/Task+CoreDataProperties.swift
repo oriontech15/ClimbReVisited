@@ -1,8 +1,8 @@
 //
-//  SubGoal+CoreDataProperties.swift
+//  Task+CoreDataProperties.swift
 //  Climb
 //
-//  Created by Justin Smith on 2/2/16.
+//  Created by Justin Smith on 2/10/16.
 //  Copyright © 2016 Justin Smith. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -12,11 +12,10 @@
 import Foundation
 import CoreData
 
-extension SubGoal {
+extension Task {
 
-    @NSManaged var date: NSDate?
-    @NSManaged var title: String?
     @NSManaged var finished: NSNumber?
+    @NSManaged var title: String?
     @NSManaged var goal: Goal?
 
 }
