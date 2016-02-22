@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class GoalListViewController: UIViewController
 {
@@ -37,18 +38,6 @@ class GoalListViewController: UIViewController
         super.viewWillAppear(true)
         tableView.reloadData()
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 
@@ -148,15 +137,7 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
-//        let blurEffect = UIBlurEffect(style: .Dark)
-//        let blurEffectView = UIVisualEffectView(effect: blurEffect)
         let headerView = HeaderForGoalList(frame: CGRectMake(0, 0, self.view.frame.width, 85))
-        //let headerView = HeaderForGoalList(frame: CGRectMake(headerView.frame.origin.x, headerView.frame.height, headerView.frame.size.width, 100))
-        
-//        let vibrancyEffect = UIVibrancyEffect(forBlurEffect: blurEffect)
-//        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
-//        vibrancyEffectView.frame = blurEffectView.frame
-//        blurEffectView.contentView.addSubview(vibrancyEffectView)
         
         if section == 0
         {
@@ -175,10 +156,9 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
             headerNumGoalsLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
             headerNumGoalsLabel.textColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
             headerView.backgroundColor = .clearColor()
-            //seperatorView.backgroundColor = UIColor.redColor()
             
             headerView.addSubview(headerLabel)
-            //headerView.addSubview(seperatorView)
+
             headerView.addSubview(headerNumGoalsLabel)
         }
         else
@@ -197,10 +177,9 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
             headerNumGoalsLabel.textAlignment = .Center
             headerNumGoalsLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
             headerNumGoalsLabel.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
-            //seperatorView.backgroundColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
             
             headerView.backgroundColor = .clearColor()
-            //headerView.addSubview(seperatorView)
+            
             headerView.addSubview(headerLabel)
             headerView.addSubview(headerNumGoalsLabel)
         }
@@ -256,6 +235,29 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
             }
         }
         return cell
+    }
+}
+
+extension NSDate
+{
+    static func updateCountdownWithGoal(date: NSDate)
+    {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let startingDate = NSDate()
+        let endingDate = date
+        
+        let calendar = NSCalendar.currentCalendar()
+        let unitFlags: NSCalendarUnit = [.Year, .Month, .Day, .Hour, .Minute, .Second]
+        let dateComponents: NSDateComponents = calendar.components(unitFlags, fromDate: startingDate, toDate: endingDate, options: [])
+        let years = dateComponents.year
+        let months = dateComponents.month
+        let days = dateComponents.day
+        let hours = dateComponents.hour
+        let minutes = dateComponents.minute
+        let seconds = dateComponents.second
+        
+        print("\(years) YEARS - \(months) MONTHS - \(days) DAYS - \(hours) HOURS - \(minutes) MINUTES - \(seconds) SECONDS")
     }
 }
 

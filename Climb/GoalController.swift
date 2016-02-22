@@ -51,6 +51,7 @@ class GoalController
     static func allGoalsInContext(context: NSManagedObjectContext) -> [Goal]?
     {
         let request = NSFetchRequest(entityName: "Goal")
+        request.relationshipKeyPathsForPrefetching = ["tasks"]
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         

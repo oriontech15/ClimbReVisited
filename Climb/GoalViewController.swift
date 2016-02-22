@@ -48,6 +48,12 @@ class GoalViewController: UIViewController {
         
         self.collectionView.reloadData()
     }
+    
+    
+    @IBAction func newGoalButtonTapped(sender: AnyObject)
+    {
+        self.performSegueWithIdentifier("AddGoalSegue", sender: nil)
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -76,10 +82,16 @@ extension GoalViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         if let goals = GoalController.allGoalsInContext(Stack.sharedStack.managedObjectContext)
         {
-            let goal = goals[indexPath.row]
-            cell.goalDateLabel.text = String.shortDateForCollectionView(goal.date!)
-            cell.goalTitleLabel.text = goal.title!
-            currentCell = indexPath.row
+            self.currentGoal = goals[indexPath.row]
+            if let currentGoal = currentGoal
+            {
+                print("INDEX PATH CALL 1 = \(indexPath.row)\n\n")
+                print("CURRENT GOALs TASK\n \(currentGoal.tasks) @ INDEX PATH.row \(indexPath.row)\n\n")
+                cell.goalDateLabel.text = String.shortDateForCollectionView(currentGoal.date!)
+                NSDate.updateCountdownWithGoal(currentGoal.date!)
+                cell.goalTitleLabel.text = currentGoal.title!
+                currentCell = indexPath.row
+            }
         }
         
         return cell
@@ -118,6 +130,7 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let taskCount = currentGoal?.tasks?.count
         {
+            print(currentGoal?.tasks)
             return taskCount
         }
         else
@@ -130,6 +143,8 @@ extension GoalViewController: UITableViewDataSource, UITableViewDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier("taskCell", forIndexPath: indexPath) as! MainViewTasksTableViewCell
         if let task = self.currentGoal?.tasks?[indexPath.row]
         {
+            print("INDEX \(indexPath.row)\n\n")
+            print("CURRENT TASK --> \(task)\n\n")
             cell.taskTitleLabel.text = task.title
         }
         

@@ -323,7 +323,6 @@ extension NewGoalViewController: AddSubGoalDelegate, UpdateSubGoalTextFieldDeleg
             subGoal.goal = goal
             if let tasksCount = self.goal?.tasks?.count
             {
-                
                 CATransaction.begin()
                 CATransaction.setCompletionBlock
                 {
