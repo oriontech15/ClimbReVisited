@@ -8,11 +8,19 @@
 
 import UIKit
 
+protocol UpdatedTaskCompletionDelegate
+{
+    
+}
+
 class MainViewTasksTableViewCell: UITableViewCell {
 
     @IBOutlet weak var taskTitleLabel: UILabel!
     @IBOutlet weak var taskCompleteButton: UIButton!
     
+    var taskDelegate: UpdatedTaskCompletionDelegate?
+    var currentGoal: Goal?
+    var task: Task?
     var complete = false
     
     override func awakeFromNib()
@@ -25,18 +33,44 @@ class MainViewTasksTableViewCell: UITableViewCell {
         taskTitleLabel.font = UIFont(name: "HelveticaNeue", size: 19)
         
     }
+    
+    func update()
+    {
+        if let boolVal = task?.finished?.boolValue
+        {
+            complete = boolVal
+            if complete
+            {
+                taskCompleteButton.setImage(UIImage(named: "GoalDoneCircleButtonSelected"), forState: .Normal)
+            }
+            else
+            {
+                taskCompleteButton.setImage(UIImage(named: "GoalDoneCircleButtonUnSelected"), forState: .Normal)
+            }
+        }
+    }
 
     @IBAction func taskCompleteButtonTapped(sender: AnyObject)
     {
-        if !complete
+        if complete == false
         {
             taskCompleteButton.setImage(UIImage(named: "GoalDoneCircleButtonSelected"), forState: .Normal)
             complete = true
+            if let task = task
+            {
+                task.finished = true
+                GoalController.saveGoalInContext(Stack.sharedStack.managedObjectContext)
+            }
         }
         else
         {
             taskCompleteButton.setImage(UIImage(named: "GoalDoneCircleButtonUnSelected"), forState: .Normal)
             complete = false
+            if let task = task
+            {
+                task.finished = false
+                GoalController.saveGoalInContext(Stack.sharedStack.managedObjectContext)
+            }
         }
     }
     

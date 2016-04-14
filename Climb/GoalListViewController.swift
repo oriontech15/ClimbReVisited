@@ -14,20 +14,23 @@ class GoalListViewController: UIViewController
     @IBOutlet weak var tableView: UITableView!
     
     var headerLabel = UILabel()
-    var headerNumGoalsLabel = UILabel()
+    var currentHeaderNumGoalsLabel = UILabel()
+    var finishedHeaderNumGoalsLabel = UILabel()
     
     var currentGoalsCount = 0
+    var unfinishedGoalsCount = 0
+    var finishedGoalsCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "Your Goals"
+        self.title = "Goal List"
         self.parentViewController?.tabBarItem.image = UIImage(named: "tabBarButtonList")?.imageWithRenderingMode(.Automatic)
         self.parentViewController?.tabBarItem.selectedImage = UIImage(named: "tabBarButtonList")?.imageWithRenderingMode(.AlwaysOriginal)
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -45,11 +48,16 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
 {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int
     {
-        if let goalCount = GoalController.allGoalsInContext(Stack.sharedStack.managedObjectContext)?.count
+        if let unfinishedGoalCount = GoalController.unfinishedGoalsInContext(Stack.sharedStack.managedObjectContext)?.count,
+            let finishedGoalCount = GoalController.finishedGoalsInContext(Stack.sharedStack.managedObjectContext)?.count
         {
-            if goalCount > 0
+            if unfinishedGoalCount > 0 && finishedGoalCount > 0
             {
                 return 2
+            }
+            else if (unfinishedGoalCount > 0 && finishedGoalCount == 0) || (finishedGoalCount > 0 && unfinishedGoalCount == 0)
+            {
+                return 1
             }
             else
             {
@@ -77,10 +85,33 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if let goalCount = GoalController.allGoalsInContext(Stack.sharedStack.managedObjectContext)?.count
+        if let unfinishedGoalCount = GoalController.unfinishedGoalsInContext(Stack.sharedStack.managedObjectContext)?.count,
+            let finishedGoalCount = GoalController.finishedGoalsInContext(Stack.sharedStack.managedObjectContext)?.count
         {
-            self.currentGoalsCount = goalCount
-            return goalCount
+            if unfinishedGoalCount > 0 && section == 0
+            {
+                self.unfinishedGoalsCount = unfinishedGoalCount
+                return unfinishedGoalCount
+            }
+            else if unfinishedGoalCount == 0 && finishedGoalCount > 0 && section == 0
+            {
+                self.finishedGoalsCount = finishedGoalCount
+                return finishedGoalCount
+            }
+            else if unfinishedGoalCount > 0 && finishedGoalCount > 0 && section == 0
+            {
+                self.unfinishedGoalsCount = unfinishedGoalCount
+                return unfinishedGoalCount
+            }
+            else if unfinishedGoalCount > 0 && finishedGoalCount > 0 && section == 1
+            {
+                self.finishedGoalsCount = finishedGoalCount
+                return finishedGoalCount
+            }
+            else
+            {
+                return 0
+            }
         }
         else
         {
@@ -104,31 +135,61 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
     {
         if editingStyle == .Delete
         {
-            if let goals = GoalController.allGoalsInContext(Stack.sharedStack.managedObjectContext)
+            if let unfinishedGoals = GoalController.unfinishedGoalsInContext(Stack.sharedStack.managedObjectContext),
+                let finishedGoals = GoalController.finishedGoalsInContext(Stack.sharedStack.managedObjectContext)
             {
                 if indexPath.section == 0
                 {
-                    if goals.count == 1
+                    if unfinishedGoals.count == 0 && finishedGoals.count > 0
                     {
-                        print(goals)
-                        print(indexPath.row)
-                        print(goals[indexPath.row])
-                        let deleted = GoalController.removeGoalFromContext(goals[indexPath.row], context: Stack.sharedStack.managedObjectContext)
-                        GoalController.saveGoalInContext(Stack.sharedStack.managedObjectContext)
-                        print(deleted)
-                        tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Fade)
-                        headerNumGoalsLabel.text = "\(currentGoalsCount)"
+                        if finishedGoals.count == 1
+                        {
+                            GoalController.removeGoalFromContext(finishedGoals[indexPath.row], context: Stack.sharedStack.managedObjectContext)
+                            GoalController.saveGoalInContext(Stack.sharedStack.managedObjectContext)
+                            tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Middle)
+                            finishedHeaderNumGoalsLabel.text = "\(finishedGoals.count)"
+                        }
+                        else
+                        {
+                            GoalController.removeGoalFromContext(finishedGoals[indexPath.row], context: Stack.sharedStack.managedObjectContext)
+                            GoalController.saveGoalInContext(Stack.sharedStack.managedObjectContext)
+                            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Middle)
+                            finishedHeaderNumGoalsLabel.text = "\(finishedGoals.count)"
+                        }
                     }
                     else
                     {
-                        print(goals)
-                        print(indexPath.row)
-                        print(goals[indexPath.row])
-                        let deleted = GoalController.removeGoalFromContext(goals[indexPath.row], context: Stack.sharedStack.managedObjectContext)
+                        if unfinishedGoals.count == 1
+                        {
+                            GoalController.removeGoalFromContext(unfinishedGoals[indexPath.row], context: Stack.sharedStack.managedObjectContext)
+                            GoalController.saveGoalInContext(Stack.sharedStack.managedObjectContext)
+                            tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Middle)
+                            finishedHeaderNumGoalsLabel.text = "\(unfinishedGoals.count)"
+                        }
+                        else
+                        {
+                            GoalController.removeGoalFromContext(unfinishedGoals[indexPath.row], context: Stack.sharedStack.managedObjectContext)
+                            GoalController.saveGoalInContext(Stack.sharedStack.managedObjectContext)
+                            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Middle)
+                            finishedHeaderNumGoalsLabel.text = "\(unfinishedGoals.count)"
+                        }
+                    }
+                }
+                else
+                {
+                    if finishedGoals.count == 1
+                    {
+                        GoalController.removeGoalFromContext(finishedGoals[indexPath.row], context: Stack.sharedStack.managedObjectContext)
                         GoalController.saveGoalInContext(Stack.sharedStack.managedObjectContext)
-                        print(deleted)
-                        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-                        headerNumGoalsLabel.text = "\(currentGoalsCount)"
+                        tableView.deleteSections(NSIndexSet(index: indexPath.section), withRowAnimation: .Middle)
+                        finishedHeaderNumGoalsLabel.text = "\(finishedGoals.count)"
+                    }
+                    else
+                    {
+                        GoalController.removeGoalFromContext(finishedGoals[indexPath.row], context: Stack.sharedStack.managedObjectContext)
+                        GoalController.saveGoalInContext(Stack.sharedStack.managedObjectContext)
+                        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Middle)
+                        finishedHeaderNumGoalsLabel.text = "\(finishedGoals.count)"
                     }
                 }
             }
@@ -139,32 +200,60 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
     {
         let headerView = HeaderForGoalList(frame: CGRectMake(0, 0, self.view.frame.width, 85))
         
+        if let unfinishedGoals = GoalController.unfinishedGoalsInContext(Stack.sharedStack.managedObjectContext),
+            let finishedGoals = GoalController.finishedGoalsInContext(Stack.sharedStack.managedObjectContext)
+        {
         if section == 0
         {
-            headerView.lineColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
-
-            headerLabel = UILabel(frame: CGRectMake(0, 0, self.view.frame.width, 35))
-            headerLabel.text = "Current Goals"
-            headerLabel.textAlignment = .Center
-            headerLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 22)
-            headerLabel.textColor = .lightGrayColor()
-            headerLabel.textColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
-            
-            headerNumGoalsLabel = UILabel(frame: CGRectMake(0, headerLabel.frame.origin.y + 42, self.view.frame.width, 50))
-            headerNumGoalsLabel.text = "\(currentGoalsCount)"
-            headerNumGoalsLabel.textAlignment = .Center
-            headerNumGoalsLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
-            headerNumGoalsLabel.textColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
-            headerView.backgroundColor = .clearColor()
-            
-            headerView.addSubview(headerLabel)
-
-            headerView.addSubview(headerNumGoalsLabel)
+            if unfinishedGoals.count == 0 && finishedGoals.count > 0
+            {
+                headerView.lineColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
+                
+                headerLabel = UILabel(frame: CGRectMake(0, 0, self.view.frame.width, 35))
+                headerLabel.text = "Finished Goals"
+                headerLabel.textAlignment = .Center
+                headerLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 22)
+                headerLabel.textColor = .lightGrayColor()
+                headerLabel.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
+                
+                currentHeaderNumGoalsLabel = UILabel(frame: CGRectMake(0, headerLabel.frame.origin.y + 42, self.view.frame.width, 50))
+                currentHeaderNumGoalsLabel.text = "\(finishedGoals.count)"
+                currentHeaderNumGoalsLabel.textAlignment = .Center
+                currentHeaderNumGoalsLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
+                currentHeaderNumGoalsLabel.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
+                headerView.backgroundColor = .clearColor()
+                
+                headerView.addSubview(headerLabel)
+                
+                headerView.addSubview(currentHeaderNumGoalsLabel)
+            }
+            else
+            {
+                headerView.lineColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
+                
+                headerLabel = UILabel(frame: CGRectMake(0, 0, self.view.frame.width, 35))
+                headerLabel.text = "Current Goals"
+                headerLabel.textAlignment = .Center
+                headerLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 22)
+                headerLabel.textColor = .lightGrayColor()
+                headerLabel.textColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
+                
+                finishedHeaderNumGoalsLabel = UILabel(frame: CGRectMake(0, headerLabel.frame.origin.y + 42, self.view.frame.width, 50))
+                finishedHeaderNumGoalsLabel.text = "\(unfinishedGoals.count)"
+                finishedHeaderNumGoalsLabel.textAlignment = .Center
+                finishedHeaderNumGoalsLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
+                finishedHeaderNumGoalsLabel.textColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
+                headerView.backgroundColor = .clearColor()
+                
+                headerView.addSubview(headerLabel)
+                
+                headerView.addSubview(finishedHeaderNumGoalsLabel)
+            }
         }
         else
         {
             headerView.lineColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
-
+            
             headerLabel = UILabel(frame: CGRectMake(0, 0, self.view.frame.width, 35))
             headerLabel.text = "Finished Goals"
             headerLabel.textAlignment = .Center
@@ -172,16 +261,17 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
             headerLabel.textColor = .lightGrayColor()
             headerLabel.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
             
-            headerNumGoalsLabel = UILabel(frame: CGRectMake(0, headerLabel.frame.origin.y + 42, self.view.frame.width, 50))
-            headerNumGoalsLabel.text = "\(currentGoalsCount)"
-            headerNumGoalsLabel.textAlignment = .Center
-            headerNumGoalsLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
-            headerNumGoalsLabel.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
-            
+            finishedHeaderNumGoalsLabel = UILabel(frame: CGRectMake(0, headerLabel.frame.origin.y + 42, self.view.frame.width, 50))
+            finishedHeaderNumGoalsLabel.text = "\(finishedGoals.count)"
+            finishedHeaderNumGoalsLabel.textAlignment = .Center
+            finishedHeaderNumGoalsLabel.font = UIFont(name: "HelveticaNeue-Medium", size: 30)
+            finishedHeaderNumGoalsLabel.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
             headerView.backgroundColor = .clearColor()
             
             headerView.addSubview(headerLabel)
-            headerView.addSubview(headerNumGoalsLabel)
+            
+            headerView.addSubview(finishedHeaderNumGoalsLabel)
+        }
         }
         
         return headerView
@@ -192,13 +282,24 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
         let view = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, 8))
         let seperatorView = UIView(frame: CGRectMake(0, 0, self.view.frame.size.width, 2))
         
-        if section == 0
+        if let unfinishedGoals = GoalController.unfinishedGoalsInContext(Stack.sharedStack.managedObjectContext),
+            let finishedGoals = GoalController.finishedGoalsInContext(Stack.sharedStack.managedObjectContext)
         {
-            seperatorView.backgroundColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
-        }
-        else
-        {
-            seperatorView.backgroundColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
+            if section == 0
+            {
+                if unfinishedGoals.count == 0 && finishedGoals.count > 0
+                {
+                    seperatorView.backgroundColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
+                }
+                else
+                {
+                    seperatorView.backgroundColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
+                }
+            }
+            else
+            {
+                seperatorView.backgroundColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
+            }
         }
         
         view.addSubview(seperatorView)
@@ -209,26 +310,39 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
     {
         let cell = tableView.dequeueReusableCellWithIdentifier("goalListCell", forIndexPath: indexPath)
         
-        if let goals = GoalController.allGoalsInContext(Stack.sharedStack.managedObjectContext)
+        if let unfinishedGoals = GoalController.unfinishedGoalsInContext(Stack.sharedStack.managedObjectContext),
+            let finishedGoals = GoalController.finishedGoalsInContext(Stack.sharedStack.managedObjectContext)
         {
             switch indexPath.section
             {
             case 0:
-                print("GOALS -- \(goals)")
-                let goal = goals[indexPath.row]
-                cell.textLabel!.text = goal.title
-                cell.detailTextLabel!.text = String.shortDateForTableView(goal.date!)
-                cell.textLabel!.textColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
-                cell.detailTextLabel!.textColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
+                if unfinishedGoals.count == 0 && finishedGoals.count > 0
+                {
+                    let goal = finishedGoals[indexPath.row]
+                    cell.textLabel?.text = goal.title
+                    
+                    cell.detailTextLabel?.text = String.shortDateForCollectionView(goal.date!)
+                    cell.textLabel?.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
+                    cell.detailTextLabel?.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
+                }
+                else
+                {
+                    print("UNFINISHED GOALS -- \(unfinishedGoals)")
+                    let goal = unfinishedGoals[indexPath.row]
+                    cell.textLabel?.text = goal.title
+                    cell.detailTextLabel?.text = String.shortDateForCollectionView(goal.date!)
+                    cell.textLabel?.textColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
+                    cell.detailTextLabel?.textColor = UIColor(red: 1.000, green: 0.914, blue: 0.290, alpha: 1.00)
+                }
                 
             case 1:
-                print("GOALS -- \(goals)")
-                let goal = goals[indexPath.row]
-                cell.textLabel!.text = goal.title
+                print("FINISHED GOALS -- \(finishedGoals)")
+                let goal = finishedGoals[indexPath.row]
+                cell.textLabel?.text = goal.title
                 
-                cell.detailTextLabel!.text = String.shortDateForTableView(goal.date!)
-                cell.textLabel!.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
-                cell.detailTextLabel!.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
+                cell.detailTextLabel?.text = String.shortDateForCollectionView(goal.date!)
+                cell.textLabel?.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
+                cell.detailTextLabel?.textColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
                 
             default:
                 break
@@ -240,7 +354,7 @@ extension GoalListViewController: UITableViewDataSource, UITableViewDelegate
 
 extension NSDate
 {
-    static func updateCountdownWithGoal(date: NSDate)
+    static func updateCountdownWithGoal(date: NSDate) -> [[String: Int]]
     {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd"
@@ -258,12 +372,25 @@ extension NSDate
         let seconds = dateComponents.second
         
         print("\(years) YEARS - \(months) MONTHS - \(days) DAYS - \(hours) HOURS - \(minutes) MINUTES - \(seconds) SECONDS")
+        
+        if years > 0 {
+            return [["Years": years], ["Months": months], ["Days": days]]
+        }
+        else if years == 0 && months > 0 {
+            return [["Months": months], ["Days": days], ["Hours": hours]]
+        }
+        else if years == 0 && months == 0 && days > 0 {
+            return [["Days": days], ["Hours":  hours], ["Minutes": minutes]]
+        }
+        else {
+            return [["Hours": hours], ["Minutes": minutes], ["Seconds": seconds]]
+        }
     }
 }
 
 extension String
 {
-    static func shortDateForTableView(date: NSDate) -> String
+    static func shortDateForTableView(date: NSDate) -> [String]
     {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateStyle = NSDateFormatterStyle.LongStyle
@@ -271,7 +398,7 @@ extension String
         timeFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
         let dateString = dateFormatter.stringFromDate(date)
         let timeString = timeFormatter.stringFromDate(date)
-        return "\(dateString) \t\t\t\t\t\t\t  - \(timeString)"
+        return [dateString, timeString]
     }
     
     static func shortDateForCollectionView(date: NSDate) -> String

@@ -14,11 +14,6 @@ protocol UpdateGoalDateTextField
     func updateTextFieldWithDate(date: NSDate)
 }
 
-protocol UpdateSubGoalDateTextField
-{
-    func updateSubGoalTextFieldWithDate(date: NSDate)
-}
-
 protocol DismissKeyBoard
 {
     func dismissKeyboardForDescription()
@@ -29,13 +24,12 @@ protocol GetGoalDescriptionDelegate
     func getGoalDescriptionText() -> String
 }
 
-class NewGoalViewController: UIViewController, SetDateViewDelegate
+class NewGoalTableViewController: UITableViewController, SetDateViewDelegate, UpdateActiveTextFieldDelegate
 {
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var goalTitleTextField: UITextField!
     @IBOutlet weak var goalTitleLabel: UILabel!
     @IBOutlet weak var goalSaveButton: UIButton!
-    @IBOutlet weak var addGoalTableView: UITableView!
     //@IBOutlet weak var saveBarButtonItem: UIBarButtonItem!
     
     var blurredBackdropView = UIVisualEffectView()
@@ -49,8 +43,10 @@ class NewGoalViewController: UIViewController, SetDateViewDelegate
     
     var goal: Goal?
     
+    var activeText: UITextField?
+    var currentOffset: CGFloat = 0
+    
     static var goalDateDelegate: UpdateGoalDateTextField?
-    static var subGoalDateDelegate: UpdateSubGoalDateTextField?
     static var dismissKeyboardDelegate: DismissKeyBoard?
     static var getGoalDescriptionDelegate: GetGoalDescriptionDelegate?
     
@@ -65,7 +61,7 @@ class NewGoalViewController: UIViewController, SetDateViewDelegate
         
         setRightBarButtonItemToSave()
         
-        let touchAction = UITapGestureRecognizer(target: self, action: "endEditing")
+        let touchAction = UITapGestureRecognizer(target: self, action: #selector(endEditing))
         view.addGestureRecognizer(touchAction)
         
         goalDatePickerView.date = NSDate()
@@ -76,14 +72,22 @@ class NewGoalViewController: UIViewController, SetDateViewDelegate
         goalSaveButton.layer.masksToBounds = true
     }
     
+    override func viewWillAppear(animated: Bool) {
+        self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.OnDrag
+        self.tableView.backgroundView = UIImageView(image: UIImage(named: "wallpaper"))
+    }
+    
+    func updateActiveText(textField: UITextField)
+    {
+        currentOffset = self.tableView.contentOffset.y
+        let cell = textField.superview?.superview as! SubGoalTableViewCell
+        let point = cell.frame.origin
+        self.tableView.setContentOffset(CGPointMake(0, point.y - 250), animated: true)
+    }
+    
     func endEditing()
     {
         self.view.endEditing(true)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func saveGoalButtonTapped()
@@ -93,7 +97,7 @@ class NewGoalViewController: UIViewController, SetDateViewDelegate
     
     func checkGoal()
     {
-        if let goalDescriptionText = NewGoalViewController.getGoalDescriptionDelegate?.getGoalDescriptionText()
+        if let goalDescriptionText = NewGoalTableViewController.getGoalDescriptionDelegate?.getGoalDescriptionText()
         {
             if goalTitleTextField.text == "" || goalTitleTextField.text == " "
             {
@@ -171,13 +175,14 @@ class NewGoalViewController: UIViewController, SetDateViewDelegate
             }
             
             goal.date = self.goalDatePickerView.date
-            self.addGoalTableView.endEditing(true)
+            self.tableView.endEditing(true)
             self.view.endEditing(true)
+            AddSubGoalTableViewCell().endEditing(true)
             GoalController.saveGoalInContext(Stack.sharedStack.managedObjectContext)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
-
+    
     @IBAction func cancelButtonTapped()
     {
         if let goal = self.goal
@@ -196,7 +201,7 @@ class NewGoalViewController: UIViewController, SetDateViewDelegate
     
     func setRightBarButtonItemToSave()
     {
-        let saveButton = UIBarButtonItem(title: "Save", style: .Done, target: self, action: "checkGoal")
+        let saveButton = UIBarButtonItem(title: "Save", style: .Done, target: self, action: #selector(checkGoal))
         self.navigationItem.setRightBarButtonItem(saveButton, animated: true)
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
         self.navigationItem.leftBarButtonItem?.enabled = true
@@ -206,23 +211,23 @@ class NewGoalViewController: UIViewController, SetDateViewDelegate
     func setDateForGoal()
     {
         presentGoalDateView()
-        setDateButton.addTarget(self, action: "addDateToGoal", forControlEvents: .TouchUpInside)
-
+        setDateButton.addTarget(self, action: #selector(addDateToGoal), forControlEvents: .TouchUpInside)
+        
     }
     
     func presentGoalDateView()
     {
-        let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: "addDateToSubGoal")
+        let doneButton = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(addDateToGoal))
         self.navigationItem.setRightBarButtonItem(doneButton, animated: true)
         self.navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)
         self.navigationItem.leftBarButtonItem?.enabled = false
         self.navigationItem.leftBarButtonItem?.tintColor = .darkGrayColor()
         
-        NewGoalViewController.dismissKeyboardDelegate?.dismissKeyboardForDescription()
+        NewGoalTableViewController.dismissKeyboardDelegate?.dismissKeyboardForDescription()
         
         let datePicker = UIDatePicker()
         datePicker.minimumDate = NSDate()
-        datePicker.datePickerMode = UIDatePickerMode.Date
+        datePicker.datePickerMode = UIDatePickerMode.DateAndTime
         datePicker.center = self.view.center //CGPoint(x: self.view.center.x, y: self.view.center.y - 100)
         datePicker.layer.borderWidth = 1
         datePicker.layer.borderColor = UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00).CGColor
@@ -263,7 +268,7 @@ class NewGoalViewController: UIViewController, SetDateViewDelegate
     {
         //Code for setting the date on the goal
         removeGoalDateViews()
-        NewGoalViewController.goalDateDelegate?.updateTextFieldWithDate(goalDatePickerView.date)
+        NewGoalTableViewController.goalDateDelegate?.updateTextFieldWithDate(goalDatePickerView.date)
     }
     
     func removeGoalDateViews()
@@ -275,11 +280,11 @@ class NewGoalViewController: UIViewController, SetDateViewDelegate
             self.setDateButton.alpha = 0.0
             self.blurredBackdropView.alpha = 0.0
             self.goalSaveButton.alpha = 1.0
-            }) { (_) -> Void in
-                self.goalDatePickerView.removeFromSuperview()
-                self.setDateButton.removeFromSuperview()
-                self.blurredBackdropView.removeFromSuperview()
-                self.addGoalTableView.reloadData()
+        }) { (_) -> Void in
+            self.goalDatePickerView.removeFromSuperview()
+            self.setDateButton.removeFromSuperview()
+            self.blurredBackdropView.removeFromSuperview()
+            self.tableView.reloadData()
         }
     }
     
@@ -298,8 +303,11 @@ class NewGoalViewController: UIViewController, SetDateViewDelegate
     }
 }
 
-//MARK: TextField Delegate Methods
-extension NewGoalViewController: UITextFieldDelegate
+/******************************/
+/* TextField Delegate Methods */
+/******************************/
+
+extension NewGoalTableViewController: UITextFieldDelegate
 {
     func textFieldDidEndEditing(textField: UITextField)
     {
@@ -313,7 +321,11 @@ extension NewGoalViewController: UITextFieldDelegate
     }
 }
 
-extension NewGoalViewController: AddSubGoalDelegate, UpdateSubGoalTextFieldDelegate
+/******************************/
+/* SUBGOAL DELEGATE FUNCTIONS */
+/******************************/
+
+extension NewGoalTableViewController: AddSubGoalDelegate, UpdateSubGoalTextFieldDelegate
 {
     func addSubGoal()
     {
@@ -321,38 +333,47 @@ extension NewGoalViewController: AddSubGoalDelegate, UpdateSubGoalTextFieldDeleg
         {
             let subGoal = TaskController.insertTaskIntoContext(goal.managedObjectContext!)
             subGoal.goal = goal
-            if let tasksCount = self.goal?.tasks?.count
+            
+            if let tasksCount = goal.tasks?.count
             {
                 CATransaction.begin()
                 CATransaction.setCompletionBlock
-                {
-                    self.addGoalTableView.reloadData()
+                    {
+                        self.tableView.reloadData()
                 }
-                addGoalTableView.beginUpdates()
-                addGoalTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: tasksCount - 1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Middle)
-                addGoalTableView.endUpdates()
+                tableView.beginUpdates()
+                tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: tasksCount - 1, inSection: 1)], withRowAnimation: UITableViewRowAnimation.Middle)
+                tableView.endUpdates()
                 CATransaction.commit()
             }
         }
+        
     }
     
     func updateSubGoalTextField(subGoalCell: SubGoalTableViewCell)
     {
-        if let indexPath = self.addGoalTableView.indexPathForCell(subGoalCell)
+        if let indexPath = self.tableView.indexPathForCell(subGoalCell)
         {
             if let task = self.goal?.tasks?[indexPath.row] as? Task
             {
                 task.title = subGoalCell.subGoalTitleTextField.text
+                subGoalCell.subGoalTitleTextField.resignFirstResponder()
+                self.tableView.setContentOffset(CGPointMake(0, currentOffset), animated: true)
             }
         }
     }
 }
 
-extension NewGoalViewController: UITableViewDataSource, UITableViewDelegate
+
+/**************************/
+/** TABLEVIEW DATASOURCE **/
+/**************************/
+
+extension NewGoalTableViewController
 {
     // MARK: - Table view data source
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0
         {
             return 18
@@ -363,10 +384,10 @@ extension NewGoalViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0
         {
-           return 0
+            return 0
         }
         else if section == 2
         {
@@ -378,7 +399,7 @@ extension NewGoalViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
+    override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
         if section == 0
         {
@@ -416,7 +437,7 @@ extension NewGoalViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         if section == 0
         {
             return UIView(frame: CGRectMake(0, 0, self.view.frame.width, 18))
@@ -427,12 +448,12 @@ extension NewGoalViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 3
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         switch section
         {
@@ -461,7 +482,7 @@ extension NewGoalViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
     {
         switch indexPath.section
         {
@@ -484,7 +505,7 @@ extension NewGoalViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         switch indexPath.section
         {
         case 1:
@@ -494,7 +515,7 @@ extension NewGoalViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete
         {
             if let goal = self.goal
@@ -518,7 +539,7 @@ extension NewGoalViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         switch indexPath.section
         {
@@ -529,9 +550,11 @@ extension NewGoalViewController: UITableViewDataSource, UITableViewDelegate
                 let cell = tableView.dequeueReusableCellWithIdentifier("goalDateCell", forIndexPath: indexPath) as! GoalDateTableViewCell
                 cell.delegate = self
                 cell.goalDateTextField.text = String.shortDateForCollectionView(goalDatePickerView.date)
+                cell.backgroundColor = .clearColor()
                 return cell
             case 1:
                 let cell = tableView.dequeueReusableCellWithIdentifier("goalDescriptionCell", forIndexPath: indexPath) as! GoalDescriptionTableViewCell
+                cell.backgroundColor = .clearColor()
                 return cell
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
@@ -540,11 +563,14 @@ extension NewGoalViewController: UITableViewDataSource, UITableViewDelegate
         case 1:
             let cell = tableView.dequeueReusableCellWithIdentifier("subGoalCell", forIndexPath: indexPath) as! SubGoalTableViewCell
             cell.titleTextFieldDelegate = self
+            cell.activeTextFieldDelegate = self
             cell.taskNumberLabel.text = "\(indexPath.row + 1)"
+            cell.backgroundColor = .clearColor()
             return cell
         case 2:
             let cell = tableView.dequeueReusableCellWithIdentifier("addSubGoalCell", forIndexPath: indexPath) as! AddSubGoalTableViewCell
             cell.delegate = self
+            cell.backgroundColor = .clearColor()
             return cell
         default:
             let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
@@ -552,33 +578,5 @@ extension NewGoalViewController: UITableViewDataSource, UITableViewDelegate
         }
     }
     
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-    // Return false if you do not want the specified item to be editable.
-    return true
-    }
-    */
     
-    /*
-    // Override to support editing the table view.
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    if editingStyle == .Delete {
-    // Delete the row from the data source
-    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-    } else if editingStyle == .Insert {
-    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }
-    }
-    */
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
 }

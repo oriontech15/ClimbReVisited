@@ -16,8 +16,8 @@ class GoalDescriptionTableViewCell: UITableViewCell, UITextViewDelegate, Dismiss
     {
         super.awakeFromNib()
         
-        NewGoalViewController.dismissKeyboardDelegate = self
-        NewGoalViewController.getGoalDescriptionDelegate = self
+        NewGoalTableViewController.dismissKeyboardDelegate = self
+        NewGoalTableViewController.getGoalDescriptionDelegate = self
         
         goalDescriptionTextView.delegate = self
         goalDescriptionTextView.text = "Enter Goal Description here"

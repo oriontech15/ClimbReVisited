@@ -21,6 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         
         UITabBar.appearance().translucent = false
+        UITableViewCell.appearance().backgroundColor = .clearColor()
         UITabBar.appearance().barTintColor = .darkGrayColor()
         UITabBar.appearance().tintColor = .lightGrayColor()
         UINavigationBar.appearance().barTintColor = .darkGrayColor()

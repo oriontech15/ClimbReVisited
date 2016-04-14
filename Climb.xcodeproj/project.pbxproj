@@ -26,7 +26,7 @@
 		DB5FAB5E1C613910005E9F25 /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB5C1C613910005E9F25 /* Goal.swift */; };
 		DB5FAB611C61452B005E9F25 /* Goal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB5F1C61452B005E9F25 /* Goal+CoreDataProperties.swift */; };
 		DB5FAB661C6152C8005E9F25 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB651C6152C8005E9F25 /* ProfileViewController.swift */; };
-		DB5FAB681C615311005E9F25 /* NewGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB671C615311005E9F25 /* NewGoalViewController.swift */; };
+		DB5FAB681C615311005E9F25 /* NewGoalTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB671C615311005E9F25 /* NewGoalTableViewController.swift */; };
 		DB5FAB6E1C61644D005E9F25 /* TabBarSubClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB6D1C61644D005E9F25 /* TabBarSubClass.swift */; };
 		DB5FAB721C6187C9005E9F25 /* GoalListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB5FAB711C6187C9005E9F25 /* GoalListViewController.swift */; };
 		DBF7B6171C6AF7FB007C1A89 /* SubGoalTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBF7B6161C6AF7FB007C1A89 /* SubGoalTableViewCell.swift */; };
@@ -57,7 +57,7 @@
 		DB5FAB5C1C613910005E9F25 /* Goal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Goal.swift; sourceTree = "<group>"; };
 		DB5FAB5F1C61452B005E9F25 /* Goal+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Goal+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DB5FAB651C6152C8005E9F25 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		DB5FAB671C615311005E9F25 /* NewGoalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGoalViewController.swift; sourceTree = "<group>"; };
+		DB5FAB671C615311005E9F25 /* NewGoalTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewGoalTableViewController.swift; sourceTree = "<group>"; };
 		DB5FAB6D1C61644D005E9F25 /* TabBarSubClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarSubClass.swift; sourceTree = "<group>"; };
 		DB5FAB711C6187C9005E9F25 /* GoalListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalListViewController.swift; sourceTree = "<group>"; };
 		DBF7B6161C6AF7FB007C1A89 /* SubGoalTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubGoalTableViewCell.swift; sourceTree = "<group>"; };
@@ -184,7 +184,7 @@
 				DB337DCE1C628A8500F78A1D /* Custom Cells */,
 				DB5FAB711C6187C9005E9F25 /* GoalListViewController.swift */,
 				DB5FAB6D1C61644D005E9F25 /* TabBarSubClass.swift */,
-				DB5FAB671C615311005E9F25 /* NewGoalViewController.swift */,
+				DB5FAB671C615311005E9F25 /* NewGoalTableViewController.swift */,
 				DB5FAB651C6152C8005E9F25 /* ProfileViewController.swift */,
 				DB5FAB2C1C612546005E9F25 /* GoalViewController.swift */,
 			);
@@ -231,6 +231,7 @@
 				TargetAttributes = {
 					DB5FAB261C612546005E9F25 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 7899SAJH98;
 					};
 				};
 			};
@@ -282,7 +283,7 @@
 				DB5FAB4A1C6127D1005E9F25 /* GoalController.swift in Sources */,
 				DB5FAB481C61275B005E9F25 /* Stack.swift in Sources */,
 				DB5FAB611C61452B005E9F25 /* Goal+CoreDataProperties.swift in Sources */,
-				DB5FAB681C615311005E9F25 /* NewGoalViewController.swift in Sources */,
+				DB5FAB681C615311005E9F25 /* NewGoalTableViewController.swift in Sources */,
 				DB5FAB2B1C612546005E9F25 /* AppDelegate.swift in Sources */,
 				DB5FAB5E1C613910005E9F25 /* Goal.swift in Sources */,
 				DB337DCD1C628A7D00F78A1D /* MainViewGoalCollectionViewCell.swift in Sources */,
@@ -403,10 +404,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Climb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.Climb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -414,10 +419,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Climb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.Climb;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

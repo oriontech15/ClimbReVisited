@@ -20,12 +20,12 @@ class HeaderForGoalList: UIView
         UIView.animateWithDuration(10.0) { () -> Void in
             let bezier = UIBezierPath()
             bezier.moveToPoint(CGPoint(x: 0, y: self.frame.height - 2))
-            bezier.addLineToPoint(CGPoint(x: 140, y: self.frame.height - 2))
-            bezier.addLineToPoint(CGPoint(x: 160, y: self.frame.height - 30))
-            bezier.addLineToPoint(CGPoint(x: self.frame.width - 160, y: self.frame.height - 30))
-            bezier.addLineToPoint(CGPoint(x: self.frame.width - 140, y: self.frame.height - 2))
+            bezier.addLineToPoint(CGPoint(x: self.center.x - 45, y: self.frame.height - 2))
+            bezier.addLineToPoint(CGPoint(x: self.center.x - 25, y: self.frame.height - 30))
+            bezier.addLineToPoint(CGPoint(x: self.center.x + 25, y: self.frame.height - 30))
+            bezier.addLineToPoint(CGPoint(x: self.center.x + 45, y: self.frame.height - 2))
             bezier.addLineToPoint(CGPoint(x: self.frame.width, y: self.frame.height - 2))
-            //bezier.closePath()
+            
             if let color = self.lineColor
             {
                 color.setStroke()

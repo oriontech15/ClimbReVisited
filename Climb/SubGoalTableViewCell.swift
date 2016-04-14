@@ -13,12 +13,17 @@ protocol UpdateSubGoalTextFieldDelegate
     func updateSubGoalTextField(subGoalCell: SubGoalTableViewCell)
 }
 
+protocol UpdateActiveTextFieldDelegate {
+    func updateActiveText(textField: UITextField)
+}
+
 class SubGoalTableViewCell: UITableViewCell, UITextFieldDelegate
 {
     @IBOutlet weak var subGoalTitleTextField: UITextField!
     @IBOutlet weak var taskNumberLabel: UILabel!
 
     var titleTextFieldDelegate: UpdateSubGoalTextFieldDelegate?
+    var activeTextFieldDelegate: UpdateActiveTextFieldDelegate?
     var taskNumber = 1
     
     override func awakeFromNib() {
@@ -36,9 +41,16 @@ class SubGoalTableViewCell: UITableViewCell, UITextFieldDelegate
         taskNumberLabel.text = "\(taskNumber)"
     }
     
+    func textFieldDidBeginEditing(textField: UITextField) {
+        self.subGoalTitleTextField = textField
+        self.activeTextFieldDelegate?.updateActiveText(textField)
+    }
+    
     func textFieldDidEndEditing(textField: UITextField)
     {
         self.titleTextFieldDelegate?.updateSubGoalTextField(self)
+        self.subGoalTitleTextField = nil
+        
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool

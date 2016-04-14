@@ -24,7 +24,7 @@ class GoalDateTableViewCell: UITableViewCell, UpdateGoalDateTextField {
     {
         super.awakeFromNib()
         
-        NewGoalViewController.goalDateDelegate = self
+        NewGoalTableViewController.goalDateDelegate = self
         
         goalDateTextField.textColor = UIColor(red: 0.691, green: 0.976, blue: 1.000, alpha: 1.00)
         
