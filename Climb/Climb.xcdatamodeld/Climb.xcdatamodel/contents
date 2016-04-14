@@ -5,16 +5,15 @@
         <attribute name="finished" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="goalDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
-        <relationship name="subGoals" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SubGoal" inverseName="goal" inverseEntity="SubGoal" syncable="YES"/>
+        <relationship name="tasks" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Task" inverseName="goal" inverseEntity="Task" syncable="YES"/>
     </entity>
-    <entity name="SubGoal" representedClassName=".SubGoal" syncable="YES">
-        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+    <entity name="Task" representedClassName=".Task" syncable="YES">
         <attribute name="finished" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="title" attributeType="String" syncable="YES"/>
-        <relationship name="goal" maxCount="1" deletionRule="Nullify" destinationEntity="Goal" inverseName="subGoals" inverseEntity="Goal" syncable="YES"/>
+        <relationship name="goal" maxCount="1" deletionRule="Nullify" destinationEntity="Goal" inverseName="tasks" inverseEntity="Goal" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Goal" positionX="-63" positionY="-18" width="128" height="120"/>
-        <element name="SubGoal" positionX="-54" positionY="-9" width="128" height="105"/>
+        <element name="Goal" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="Task" positionX="124" positionY="198" width="128" height="90"/>
     </elements>
 </model>

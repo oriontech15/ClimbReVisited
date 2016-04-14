@@ -21,10 +21,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.LightContent
         
         UITabBar.appearance().translucent = false
+        UITableViewCell.appearance().backgroundColor = .clearColor()
         UITabBar.appearance().barTintColor = .darkGrayColor()
         UITabBar.appearance().tintColor = .lightGrayColor()
         UINavigationBar.appearance().barTintColor = .darkGrayColor()
         UINavigationBar.appearance().tintColor = .whiteColor()
+        
+        let titleDict: NSDictionary = [NSForegroundColorAttributeName: UIColor(red: 0.110, green: 0.816, blue: 1.000, alpha: 1.00)]
+        UINavigationBar.appearance().titleTextAttributes = titleDict as? [String : AnyObject]
         
         return true
     }

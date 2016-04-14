@@ -11,6 +11,9 @@ import CoreData
 
 class GoalController
 {
+    
+    static var timer = NSTimer()
+    
     static func insertGoalIntoContext(context: NSManagedObjectContext) -> Goal
     {
         return NSEntityDescription.insertNewObjectForEntityForName(Goal.className, inManagedObjectContext: context) as! Goal
@@ -27,16 +30,20 @@ class GoalController
         }
         catch let error as NSError
         {
-            print("Goal Did NOT Save: -- \(error.localizedDescription) in \(__FUNCTION__)")
+            print("Goal Did NOT Save: -- \(error.localizedDescription) in \(#function)")
             return false
         }
     }
     
     static func removeGoalFromContext(goal: Goal, context: NSManagedObjectContext) -> Bool
     {
-        print("GOAL BEFORE DELETED: \(goal.managedObjectContext)")
-        context.deleteObject(goal)
-        print("GOAL AFTER DELETED: \(goal.managedObjectContext)")
+        goal.managedObjectContext?.deleteObject(goal)
+        do {
+            GoalController.timer.invalidate()
+            try context.save()
+        } catch let error as NSError {
+            NSLog("\(error)")
+        }
         
         if goal.managedObjectContext == nil
         {
@@ -51,7 +58,7 @@ class GoalController
     static func allGoalsInContext(context: NSManagedObjectContext) -> [Goal]?
     {
         let request = NSFetchRequest(entityName: "Goal")
-        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
         request.sortDescriptors = [sortDescriptor]
         
         var goals = [Goal]()
@@ -62,8 +69,19 @@ class GoalController
         }
         catch let error as NSError
         {
-            print("Goal Fetch Failed: -- \(error.localizedDescription) in \(__FUNCTION__)")
+            print("Goal Fetch Failed: -- \(error.localizedDescription) in \(#function)")
             return nil
+        }
+        
+        for goal in goals
+        {
+            if let date = goal.date
+            {
+                if date.compare(NSDate()) == NSComparisonResult.OrderedAscending
+                {
+                    goal.finished = true
+                }
+            }
         }
         
         return goals
@@ -72,6 +90,7 @@ class GoalController
     static func finishedGoalsInContext(context: NSManagedObjectContext) -> [Goal]?
     {
         let request = NSFetchRequest(entityName: "Goal")
+        request.relationshipKeyPathsForPrefetching = ["tasks"]
         let finishedGoalPredicate = NSPredicate(format: "finished = 1")
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
         request.predicate = finishedGoalPredicate
@@ -85,7 +104,7 @@ class GoalController
         }
         catch let error as NSError
         {
-            print("Finished Goals Fetch Failed: -- \(error.localizedDescription) in \(__FUNCTION__)")
+            print("Finished Goals Fetch Failed: -- \(error.localizedDescription) in \(#function)")
             return nil
         }
         
@@ -95,6 +114,7 @@ class GoalController
     static func unfinishedGoalsInContext(context: NSManagedObjectContext) -> [Goal]?
     {
         let request = NSFetchRequest(entityName: "Goal")
+        request.relationshipKeyPathsForPrefetching = ["tasks"]
         let finishedGoalPredicate = NSPredicate(format: "finished = 0")
         let sortDescriptor = NSSortDescriptor(key: "date", ascending: true)
         request.predicate = finishedGoalPredicate
@@ -108,7 +128,7 @@ class GoalController
         }
         catch let error as NSError
         {
-            print("Unfinished Goals Fetch Failed: -- \(error.localizedDescription) in \(__FUNCTION__)")
+            print("Unfinished Goals Fetch Failed: -- \(error.localizedDescription) in \(#function)")
             return nil
         }
         
