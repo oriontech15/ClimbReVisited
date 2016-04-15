@@ -231,7 +231,7 @@
 				TargetAttributes = {
 					DB5FAB261C612546005E9F25 = {
 						CreatedOnToolsVersion = 7.2;
-						DevelopmentTeam = 7899SAJH98;
+						DevelopmentTeam = 4637N428EN;
 					};
 				};
 			};
@@ -408,10 +408,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Climb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.Climb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesmith.talus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -423,10 +423,10 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Climb/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.yourcompany.Climb;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesmith.talus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
